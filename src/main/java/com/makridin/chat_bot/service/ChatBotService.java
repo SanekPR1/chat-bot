@@ -11,16 +11,14 @@ public class ChatBotService {
 
     ChatClient chatClient;
 
-    public ChatBotService(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder.build();
+    public ChatBotService(ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     public String generateChatResponse(String message) {
-        return chatClient.prompt(new Prompt(StringUtils.isEmpty(message) ? DEFAULT_PROMPT_MESSAGE : message))
+        return chatClient.prompt()
+                .user(StringUtils.isEmpty(message) ? DEFAULT_PROMPT_MESSAGE : message)
                 .call()
-                .chatResponse()
-                .getResult()
-                .getOutput()
-                .getContent();
+                .content();
     }
 }
