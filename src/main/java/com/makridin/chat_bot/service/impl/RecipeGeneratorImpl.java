@@ -1,13 +1,14 @@
-package com.makridin.chat_bot.service;
+package com.makridin.chat_bot.service.impl;
 
 import com.makridin.chat_bot.model.Answer;
 import com.makridin.chat_bot.model.Question;
+import com.makridin.chat_bot.service.RecipeGenerator;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RecipeGeneratorImpl implements RecipeGenerator{
+public class RecipeGeneratorImpl implements RecipeGenerator {
     private final ChatClient chatClient;
     private final String questionTemplate = """
             Answer for {question} for {foodName}""";
