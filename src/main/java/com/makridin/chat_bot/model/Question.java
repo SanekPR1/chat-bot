@@ -9,4 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Question {
     private String question;
+    private String foodName;
 }

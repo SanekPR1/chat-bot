@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RecipeGeneratorImpl implements RecipeGenerator{
     private final ChatClient chatClient;
+    private final String questionTemplate = """
+            Answer for {question} for {foodName}""";
 
     public RecipeGeneratorImpl(ChatClient chatClient) {
         this.chatClient = chatClient;
@@ -17,16 +19,19 @@ public class RecipeGeneratorImpl implements RecipeGenerator{
     @Override
     public Answer generateRecipe(Question question) {
         return new Answer(
-                getMessage(question.getQuestion())
+                getMessage(question)
                         .getResult()
                         .getOutput()
                         .getContent()
         );
     }
 
-    private ChatResponse getMessage(String message) {
+    private ChatResponse getMessage(Question question) {
         return chatClient.prompt()
-                .user(message)
+                .user(userSpec -> userSpec.text(questionTemplate)
+                        .param("question", question.getQuestion())
+                        .param("foodName", question.getFoodName())
+                )
                 .call()
                 .chatResponse();
     }

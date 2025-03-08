@@ -19,7 +19,7 @@ public class RecipeController {
     }
 
     @PostMapping("/generate")
-    public Answer chat(@RequestBody String message) {
-        return recipeGenerator.generateRecipe(new Question(message));
+    public Answer chat(@RequestBody Question message) {
+        return recipeGenerator.generateRecipe(message);
     }
 }
