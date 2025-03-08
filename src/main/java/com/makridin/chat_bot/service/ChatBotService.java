@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class ChatBotService {
     private static final String DEFAULT_PROMPT_MESSAGE = "Please give me a simple joke";
 
-    ChatClient chatClient;
+    private final ChatClient chatClient;
 
     public ChatBotService(ChatClient chatClient) {
         this.chatClient = chatClient;
